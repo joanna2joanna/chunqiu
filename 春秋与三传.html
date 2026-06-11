@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《春秋》与春秋三传</title>
+<style>
+  /* ══════════════════════════════════════════
+     纸墨书香 — Editorial / Literary Journal
+     暖纸底 · 墨字 · 宋楷标题 · 朱砂点睛
+     五级字号：54/32/23/18/13
+     ══════════════════════════════════════════ */
+  :root {
+    --paper: #faf7f2;
+    --ink: #1a1a1a;
+    --ink-light: #555;
+    --ink-muted: #8a8a8a;
+    --vermillion: #b5343a;
+    --vermillion-soft: #c75b5f;
+    --vermillion-pale: #fdf2f2;
+    --border: #e0dbd2;
+    --border-light: #ebe6dd;
+    --card: #f5f1ea;
+    --story-bg: #faf6f0;
+    --quote-bg: #f3efe7;
+    --table-head: #efe9e0;
+    --tag-bg: #ede6db;
+    --diagram-bg: #fdfcf9;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.04);
+    --shadow-md: 0 4px 20px rgba(0,0,0,.06);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", "Noto Sans SC", sans-serif;
+    font-size: 18px; line-height: 1.9; color: var(--ink); background: var(--paper);
+    padding-top: 66px;
+  }
+
+  /* ── Panels ── */
+  .panel { display: none; animation: fadeIn .35s ease; }
+  .panel.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── Top Navigation ── */
+  #topnav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(250,247,242,.94);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 0; padding: 10px 40px;
+  }
+  #topnav .brand {
+    font-family: "KaiTi", "STKaiti", "楷体", "Kaiti SC", serif;
+    font-size: 20px; letter-spacing: 4px; margin-right: 32px; cursor: pointer;
+    color: var(--ink); user-select: none; position: relative;
+  }
+  #topnav .brand::after {
+    content: ''; display: inline-block; width: 4px; height: 4px;
+    background: var(--vermillion); border-radius: 50%;
+    margin-left: 4px; vertical-align: super;
+  }
+  #topnav .nav-sep {
+    width: 1px; height: 18px; background: var(--border); margin: 0 8px 0 0;
+  }
+  #topnav .nav-btn {
+    font-family: "Songti SC", "STSong", "Noto Serif SC", "Songti", serif;
+    display: inline-block; padding: 7px 18px; font-size: 15px; font-weight: 600;
+    color: var(--ink-light); text-decoration: none; border-radius: 3px;
+    letter-spacing: 1px; cursor: pointer; border: none; background: none;
+    transition: color .2s, background .2s;
+  }
+  #topnav .nav-btn:hover { color: var(--vermillion); background: var(--vermillion-pale); }
+  #topnav .nav-btn.active { color: var(--vermillion); }
+
+  /* Dropdown */
+  .nav-dropdown { position: relative; display: inline-block; }
+  .nav-dropdown .nav-btn::after { content: ' ▾'; font-size: 10px; }
+  .nav-dropdown .dropdown-panel {
+    display: none; position: absolute; top: 100%; left: 0; margin-top: 6px;
+    background: #fdfbf7; border: 1px solid var(--border); border-radius: 6px;
+    box-shadow: var(--shadow-md); min-width: 310px;
+    padding: 8px 0; columns: 2; column-gap: 0;
+  }
+  .nav-dropdown:hover .dropdown-panel { display: block; }
+  .dropdown-panel a {
+    display: block; padding: 7px 16px; font-size: 14px; color: var(--ink);
+    text-decoration: none; break-inside: avoid; cursor: pointer;
+    font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+    transition: background .15s, color .15s;
+    white-space: nowrap;
+  }
+  .dropdown-panel a:hover { background: var(--vermillion-pale); color: var(--vermillion); }
+
+  /* ── Main Content Area ── */
+  #main { max-width: 920px; margin: 0 auto; padding: 0 52px 100px; }
+
+  /* ── Typography ── */
+  #main h2 {
+    font-family: "Songti SC", "STSong", "Noto Serif SC", "Songti", serif;
+    font-size: 32px; font-weight: 600; margin: 52px 0 20px; padding-bottom: 14px;
+    border-bottom: 1px solid var(--border); letter-spacing: 2px;
+    position: relative;
+  }
+  #main h2::after {
+    content: ''; position: absolute; bottom: -1px; left: 0;
+    width: 42px; height: 2px; background: var(--vermillion); opacity: .45;
+  }
+  #main h3 {
+    font-family: "Songti SC", "STSong", "Noto Serif SC", "Songti", serif;
+    font-size: 23px; font-weight: 600; margin: 38px 0 14px; letter-spacing: 1px;
+  }
+  #main h4 {
+    font-family: "Songti SC", "STSong", "Noto Serif SC", "Songti", serif;
+    font-size: 18px; font-weight: 600; margin: 26px 0 8px;
+    color: var(--ink); letter-spacing: .5px;
+  }
+  #main p  { margin-bottom: 16px; text-align: justify; }
+  #main ul, #main ol { margin: 8px 0 18px 24px; }
+  #main li { margin-bottom: 6px; }
+  #main strong { font-weight: 700; }
+  mark { background: rgba(181,52,58,.08); color: inherit; padding: 0 2px; }
+
+  /* Links */
+  #main a {
+    color: var(--vermillion); text-decoration: none;
+    border-bottom: 1px dotted var(--vermillion-soft);
+    transition: border .15s;
+  }
+  #main a:hover { border-bottom-style: solid; }
+
+  /* ── Blockquote ── */
+  #main blockquote {
+    border-left: 2px solid var(--vermillion);
+    padding: 16px 24px; margin: 24px 0;
+    background: var(--quote-bg); border-radius: 0 4px 4px 0;
+    color: var(--ink-light); font-size: 17px; font-style: italic;
+  }
+
+  /* ── Tables ── */
+  table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 15px; }
+  th, td { border: 1px solid var(--border); padding: 11px 16px; text-align: left; vertical-align: top; }
+  th:first-child, td:first-child { white-space: nowrap; }
+  th {
+    background: var(--table-head); font-weight: 700; font-size: 14px;
+    letter-spacing: .5px;
+  }
+  tr:nth-child(even) td { background: rgba(245,241,234,.35); }
+
+  /* ── Generic Cards ── */
+  .card {
+    background: var(--card); border: 1px solid var(--border-light);
+    border-radius: 6px; padding: 24px 28px; margin: 24px 0;
+  }
+
+  /* ── Timeline ── */
+  .timeline { position: relative; padding-left: 40px; margin: 28px 0; }
+  .timeline::before {
+    content: ''; position: absolute; left: 3px; top: 5px; bottom: 5px;
+    width: 1px; background: var(--border);
+  }
+  .timeline-item { margin-bottom: 24px; position: relative; }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-item::before {
+    content: ''; position: absolute; left: -43px; top: 5px;
+    width: 9px; height: 9px; background: var(--vermillion); border-radius: 50%; opacity: .4;
+  }
+  .timeline-item .year {
+    font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+    font-size: 13px; color: var(--ink-muted); letter-spacing: .5px; margin-bottom: 3px;
+  }
+  .timeline-item .event {
+    font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+    font-size: 16px; line-height: 1.7;
+  }
+
+  /* ── Story Cards ── */
+  .story-card {
+    margin: 44px 0; background: var(--story-bg);
+    border: 1px solid var(--border-light);
+    border-top: 3px solid var(--vermillion);
+    border-radius: 0 0 4px 4px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: box-shadow .25s;
+  }
+  .story-card:hover { box-shadow: var(--shadow-md); }
+  .story-header {
+    padding: 22px 30px 16px;
+    border-bottom: 1px dotted var(--border-light);
+    background: linear-gradient(180deg, rgba(181,52,58,.025) 0%, transparent 100%);
+  }
+  .story-header h3 {
+    font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+    margin: 0 0 5px; font-size: 23px; font-weight: 600; letter-spacing: 1px;
+    color: var(--ink);
+  }
+  .story-header .story-meta {
+    font-size: 13px; color: var(--ink-muted); letter-spacing: .3px;
+  }
+  .story-body { padding: 24px 30px; }
+  .story-body h4 {
+    font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+    font-size: 17px; margin-top: 26px; color: var(--vermillion); letter-spacing: .5px;
+  }
+  .story-body h4::before {
+    content: '◆ '; font-size: 9px; vertical-align: middle; opacity: .45;
+  }
+
+  /* ── Tree Diagrams ── */
+  .tree { list-style: none; margin: 16px 0; padding: 0; font-size: 15px; line-height: 1.9; }
+  .tree li { position: relative; padding: 2px 0 2px 22px; }
+  .tree li::before {
+    content: ''; position: absolute; left: 0; top: 15px;
+    width: 12px; border-top: 1px solid var(--border);
+  }
+  .tree li::after {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    border-left: 1px solid var(--border);
+  }
+  .tree > li::after { top: 15px; }
+  .tree li:last-child::after { bottom: auto; height: 15px; }
+  .tree ul { list-style: none; margin: 0; padding-left: 22px; }
+  .tree .node { font-weight: 700; }
+  .tree .note { font-size: 13px; color: var(--ink-muted); margin-left: 4px; }
+
+  /* ── Character Badges ── */
+  .char-badge {
+    display: inline-block; padding: 3px 14px; margin: 3px 6px 3px 0;
+    background: var(--tag-bg); border-radius: 3px; font-size: 14px;
+    border: 1px solid var(--border);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 960px) {
+    #main { padding: 0 22px 60px; }
+    #topnav { padding: 8px 16px; gap: 0; flex-wrap: wrap; }
+    #topnav .brand { margin-right: 8px; font-size: 17px; letter-spacing: 2px; }
+    #topnav .nav-btn { padding: 5px 11px; font-size: 13px; }
+    #topnav .nav-sep { display: none; }
+    .hero h1 { font-size: 38px; letter-spacing: 3px; }
+    #main h2 { font-size: 26px; margin-top: 38px; }
+    #main h3 { font-size: 20px; }
+    .story-header { padding: 18px 20px 12px; }
+    .story-body { padding: 18px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ TOP NAV ═══════════ -->
+<nav id="topnav">
+  <span class="brand">春秋与三传</span>
+  <a href="#" class="nav-btn" data-panel="panel-zonggang">总纲</a>
+  <a href="#" class="nav-btn" data-panel="panel-bifa">春秋笔法</a>
+  <a href="#" class="nav-btn" data-panel="panel-renwu">人物</a>
+  <div class="nav-dropdown">
+    <span class="nav-btn" data-panel="panel-gushi">故事</span>
+    <div class="dropdown-panel">
+      <a href="#" data-story="story-01">郑伯克段于鄢</a>
+      <a href="#" data-story="story-02">曹刿论战</a>
+      <a href="#" data-story="story-03">齐桓公霸业</a>
+      <a href="#" data-story="story-04">宋襄之仁</a>
+      <a href="#" data-story="story-05">晋文公流亡与城濮</a>
+      <a href="#" data-story="story-06">烛之武退秦师</a>
+      <a href="#" data-story="story-07">秦晋崤之战</a>
+      <a href="#" data-story="story-08">赵盾弑其君</a>
+      <a href="#" data-story="story-09">楚庄王问鼎</a>
+      <a href="#" data-story="story-10">晋楚邲之战</a>
+      <a href="#" data-story="story-11">齐晋鞍之战</a>
+      <a href="#" data-story="story-12">晋楚鄢陵之战</a>
+      <a href="#" data-story="story-13">子产相郑</a>
+      <a href="#" data-story="story-14">季札观乐</a>
+      <a href="#" data-story="story-15">崔杼弑其君</a>
+      <a href="#" data-story="story-16">吴越争霸</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════ MAIN CONTENT ═══════════ -->
+<main id="main">
+
+<!-- ═══════════ PANEL: 总纲 ═══════════ -->
+<div class="panel" id="panel-zonggang">
+
+<!-- =============================================== -->
+<!-- 第一部分：总纲 -->
+<!-- =============================================== -->
+<h2 id="sec-what">一、《春秋》是什么</h2>
+<p>《春秋》是<strong>鲁国编年史</strong>，起<strong>鲁隐公元年（前722）</strong>，止<strong>鲁哀公十四年（前481）</strong>，跨<strong>242年</strong>。传统说法：孔子据鲁国史官记载修订，"笔则笔，削则削"，一字定褒贬。全书约18000字，极其简练——每则多则一句话，少则一字（如"螟"记虫灾）。汉武帝时列为"五经"之一。</p>
+
+<h3>时代背景</h3>
+<div class="card" style="padding:18px 24px;">
+<p style="margin-bottom:8px;"><strong>周天子</strong>（名义共主，实际号令不出王畿）</p>
+<p style="margin:4px 0 4px 20px;">├ <strong>霸主</strong>（齐→晋→楚，代天子行征伐之权）</p>
+<p style="margin:4px 0 4px 20px;">└ <strong>中小诸侯</strong>（郑、鲁、宋、卫、曹、陈、蔡等，左右摇摆，输贡纳赋）</p>
+</div>
+<p>五大趋势贯穿始终：<strong>王权衰落</strong>（平王东迁后王室衰微）→ <strong>霸政更替</strong>（齐桓→宋襄→晋文→秦穆→楚庄）→ <strong>晋楚百年争霸</strong>（约百年拉锯）→ <strong>大夫专权</strong>（鲁三桓、晋六卿、齐田氏，陪臣执国命）→ <strong>边缘崛起</strong>（吴、越从蛮夷之地崛起参与中原争霸）。</p>
+
+<h2 id="sec-states">二、诸侯国关系图</h2>
+<div class="card" style="padding: 24px 28px;">
+  <p><strong>周王室</strong>　洛邑，名义共主，号令不出王畿。</p>
+  <p><strong>齐</strong>　东方大国，姜姓。管仲改革经济最强，齐桓公首霸。</p>
+  <p><strong>晋</strong>　北方屏障，姬姓。阻楚北上，文公后长期称霸，卿族最后瓜分晋国。</p>
+  <p><strong>楚</strong>　南方巨兽，芈姓。自称"我蛮夷也"，与晋百年争霸。</p>
+  <p><strong>秦</strong>　西陲，嬴姓。与晋通婚——"秦晋之好"，崤之战后转向西扩。</p>
+  <p><strong>郑</strong>　中原十字路口，姬姓。夹在晋楚之间，春秋最苦命的"夹心"国家。</p>
+  <p><strong>宋</strong>　殷商之后，子姓。讲"仁义"到迂腐（宋襄公泓之战）。</p>
+  <p><strong>吴·越</strong>　东南后起之秀。阖闾/夫差、勾践先后称霸，春秋尾声。</p>
+</div>
+
+<!-- =============================================== -->
+<!-- 第二部分：春秋三传 -->
+<!-- =============================================== -->
+<h2 id="sec-zuozhuan">三、《左传》（左氏春秋）</h2>
+<p><strong>作者</strong>：左丘明（传统说法），鲁国人，约与孔子同时，成书于战国前期（约前400年）。<strong>规模</strong>：最大，约19万字，叙事至前464年，比《春秋》多17年。</p>
+<p><strong>核心特点</strong>：<mark>以叙事解经</mark>——不是逐字解释经文，而是给完整的历史故事。文笔极佳，是先秦叙事文的巅峰。强调<strong>礼与德</strong>，历史观是道德主义的，每于叙事之后以"君子曰"发议论。史料价值在三传中最高。</p>
+<p><strong>优秀注本</strong>：杜预《春秋左传集解》（晋）、杨伯峻《春秋左传注》（现代）。</p>
+
+<h2 id="sec-gongyang">四、《公羊传》</h2>
+<p><strong>作者</strong>：公羊高（传统说法），子夏弟子，齐人。战国至汉初口耳相传，汉景帝时写定。<strong>规模</strong>：中等，纯粹解经，无补充叙事。</p>
+<p><strong>核心特点</strong>：<mark>逐字逐句解经，专求"微言大义"</mark>——孔子修订《春秋》时每个字的选择都有深意。核心命题：<strong>大一统、尊王攘夷、拨乱反正、三世说</strong>。政治色彩最浓——董仲舒以公羊学为汉武帝建立理论，公孙弘以"春秋决狱"入相。</p>
+<p><strong>优秀注本</strong>：何休《春秋公羊解诂》（东汉）、陈立《公羊义疏》（清）。</p>
+
+<h2 id="sec-guliang">五、《穀梁传》</h2>
+<p><strong>作者</strong>：穀梁赤（传统说法），亦子夏弟子，鲁人。稍晚于公羊，汉初写定。三传中规模最小。</p>
+<p><strong>核心特点</strong>：<mark>逐字解经，侧重礼制与名分</mark>——不像公羊高度政治化，更关注礼制规范和君臣父子名分。<strong>重视文例</strong>（书写格式中的微义），对日月、名氏、爵位等书例特别敏感。<strong>重视"讳"</strong>——为尊者讳、为亲者讳、为贤者讳的规则在穀梁中得到最多阐发。</p>
+<p><strong>优秀注本</strong>：范宁《春秋穀梁传集解》（东晋）、钟文烝《春秋穀梁经传补注》（清）。</p>
+
+<h2 id="sec-compare">六、三传核心对比</h2>
+<table>
+  <tr><th>维度</th><th>左传</th><th>公羊传</th><th>穀梁传</th></tr>
+  <tr><td><strong>解经方式</strong></td><td>补充叙事，"以事解经"</td><td>逐字追问，"以义解经"</td><td>逐字辨析，"以礼解经"</td></tr>
+  <tr><td><strong>规模</strong></td><td>大（19万字）</td><td>中</td><td>小</td></tr>
+  <tr><td><strong>核心关注</strong></td><td>历史因果（发生了什么、为何发生）</td><td>微言大义（孔子为何这样写）</td><td>礼制名分（这样写符合什么礼）</td></tr>
+  <tr><td><strong>经学派别</strong></td><td>古文经学</td><td>今文经学（核心）</td><td>今文经学</td></tr>
+  <tr><td><strong>政治运用</strong></td><td>史鉴</td><td>大一统理论、春秋决狱</td><td>礼制建设</td></tr>
+  <tr><td><strong>可靠性</strong></td><td>史料价值最高</td><td>义理价值高，历史价值低</td><td>礼制参考价值高</td></tr>
+</table>
+
+<div class="card">
+  <h4>同一事件三传对照示例：郑伯克段于鄢</h4>
+  <table>
+    <tr><th>谁之罪？</th><th>左传</th><th>公羊</th><th>穀梁</th></tr>
+    <tr><td>庄公</td><td>蓄意纵容，残忍</td><td>处心积虑杀弟，最大恶</td><td><strong>失教</strong>——未履兄长之责</td></tr>
+    <tr><td>共叔段</td><td>骄横、不义</td><td>不守弟道</td><td>失子弟之道</td></tr>
+    <tr><td>核心批判</td><td>政治阴谋</td><td>骨肉相残</td><td>礼教缺失</td></tr>
+  </table>
+  <p style="margin-top:10px;">同一个"克"字，三种读法，三重深度。这就是为什么读《春秋》需要三传并行。</p>
+</div>
+
+<h2 id="sec-reading">七、读法指南</h2>
+<ol>
+  <li><strong>先读左传</strong>——拿到故事。没有左传导叙事打底，公羊穀梁的议论就是无根之木</li>
+  <li><strong>再看公羊</strong>——追问义理。理解"为什么这样写"，体会孔子"一字褒贬"</li>
+  <li><strong>翻阅穀梁</strong>——补礼制视角。理解"讳""例"的规则</li>
+</ol>
+<blockquote>三传都有立场，没有"纯粹客观"的春秋解读。分歧之处本身就是理解《春秋》争议性的窗口。</blockquote>
+
+</div><!-- end panel-zonggang -->
+
+<!-- ═══════════ PANEL: 春秋笔法 ═══════════ -->
+<div class="panel" id="panel-bifa">
+
+<h2 id="sec-bifa">春秋笔法：孔子怎样用字来审判历史</h2>
+<p>司马迁说"孔子作《春秋》而乱臣贼子惧"。一部一万八千字的编年史，凭什么让乱臣贼子惧怕？——凭的就是"春秋笔法"。</p>
+<p>春秋笔法不是一套死板的规则，而是一种<strong>寓褒贬于叙事</strong>的写作伦理。它的核心前提是：写历史的人不是中立的记录机器。每个字的选择都是判断，每次省略都是态度。孔子把判断藏在措辞里，让后世的读者去发现。</p>
+
+<h3>（一）不该写却写了：直书其罪</h3>
+<p>有些事情本该被掩盖，但《春秋》写了。</p>
+<p><strong>"赵盾弑其君"</strong>是最经典的例子。晋灵公是赵穿的刀杀的，赵盾本人不在现场。按理不该由赵盾背"弑"的罪名。但经文写了——为什么？太史董狐的逻辑："子为正卿，亡不越竟，反不讨贼——非子而谁？"</p>
+<p><strong>"崔杼弑其君"</strong>同理。齐庄公私通崔杼之妻，但崔杼作为臣子杀了国君，经文仍然用"弑"。齐国太史一家三口为此掉脑袋，但《春秋》保留了这两个字。公羊传的立场很硬："臣不可以弑君。"</p>
+<div class="card"><p>不该写却写了——这就是<strong>"直书其罪"</strong>。不做和事佬，不在人命和政治面前和稀泥。孔子选择把丑事记下来，留给后人看。</p></div>
+
+<h3>（二）该写却没写：讳笔</h3>
+<p>有些事情本来应该写，但《春秋》没有写——或者换了一种隐晦的写法。这就是<strong>讳</strong>。</p>
+<p><strong>"为尊者讳，为亲者讳，为贤者讳"</strong>——三讳是春秋笔法的基本原则。</p>
+<h4>经典案例：天王狩于河阳</h4>
+<p>实情：晋文公在践土之盟召周襄王来参加——臣召君，僭越。但经文不写"晋侯召王"，而写天子自己<strong>"狩"</strong>到了河阳。公羊传的解释：天子被诸侯召见太丢人了，《春秋》不忍直书。但注意——这种讳不是撒谎。写"狩"确实掩盖了实情，可"狩"字本身就是信号：事情不寻常。知情者读得懂，不知情者也不会对天子失去敬意。</p>
+<h4>鲁国的内丑</h4>
+<p>鲁桓公在齐国被齐襄公指使杀害——实为情杀（夫人文姜与齐襄公私通）。经文只写"公薨于齐"，不提原因和凶嫌。</p>
+<div class="card"><p>讳不是怯懦。讳是一种保护——保护读者对秩序的信仰不至于完全崩塌。它既是一种<strong>"不说"的诚实</strong>，也是一种<strong>"不说"的政治</strong>。</p></div>
+
+<h3>（三）同一个意思，不同的词：一字褒贬</h3>
+<p>同一个动作——《春秋》用不同的字来表达，每个字背后有不同的道德判断。</p>
+
+<h4>杀 / 弑 / 克 / 诛：四种"杀死"</h4>
+<table>
+  <tr><th>用字</th><th>含义</th><th>示例</th></tr>
+  <tr><td><strong>杀</strong></td><td>一般杀害，中性</td><td>"某杀其大夫"</td></tr>
+  <tr><td><strong>弑</strong></td><td>臣杀君、子杀父——大逆</td><td>"赵盾弑其君""崔杼弑其君"</td></tr>
+  <tr><td><strong>克</strong></td><td>像对付外敌一样消灭对方</td><td>"郑伯克段于鄢"</td></tr>
+  <tr><td><strong>诛</strong></td><td>对有罪之人的正义处决——褒义</td><td>使用极为谨慎</td></tr>
+</table>
+<p>"郑伯克段于鄢"为什么用"克"而不是"杀"？公羊传：用"克"就是"大郑伯之恶"——把这个哥哥杀弟弟的事写成两国交战。穀梁传补充：庄公追到鄢地去杀段，"犹曰取之其母之怀中而杀之"。三传一致认为亲兄弟间不该用"克"。</p>
+
+<h4>伐 / 侵 / 入 / 袭 / 围：五种"战争"</h4>
+<table>
+  <tr><th>用字</th><th>含义</th><th>示例</th></tr>
+  <tr><td><strong>伐</strong></td><td>鸣钟鼓堂堂正正出兵，正义之师</td><td>"齐侯伐楚"</td></tr>
+  <tr><td><strong>侵</strong></td><td>不鸣钟鼓暗地出兵，非正义</td><td>"某侵某"</td></tr>
+  <tr><td><strong>入</strong></td><td>攻入都城但不占领</td><td>"吴入郢"</td></tr>
+  <tr><td><strong>袭</strong></td><td>偷袭</td><td>几乎不用（春秋忌讳偷袭）</td></tr>
+  <tr><td><strong>围</strong></td><td>包围城市</td><td>"秦人围郑"</td></tr>
+</table>
+<p>"伐"与"侵"的差异不是军事上的——鸣不鸣钟鼓对战场胜负影响不大——但道德上差别巨大。"伐"是光明正大的，"侵"是见不得人的。</p>
+
+<h4>薨 / 卒 / 死：三种"死亡"</h4>
+<table>
+  <tr><th>用字</th><th>含义</th></tr>
+  <tr><td><strong>薨</strong></td><td>诸侯正常死亡，体面</td></tr>
+  <tr><td><strong>卒</strong></td><td>大夫之死，或诸侯非正常死亡</td></tr>
+  <tr><td><strong>死</strong></td><td>庶民之死，或极贬</td></tr>
+</table>
+<p>鲁隐公被弑——"公薨"。鲁桓公在外国被杀——"公薨于齐"。同一个"薨"字包裹了完全不同的死亡。</p>
+
+<h3>（四）叫你什么就是对你的评价：称谓即褒贬</h3>
+<table>
+  <tr><th>称呼</th><th>含义</th><th>示例</th></tr>
+  <tr><td><strong>称爵</strong>（齐侯、晋侯、宋公）</td><td>尊重，承认合法地位</td><td>正常情况</td></tr>
+  <tr><td><strong>称"人"</strong>（晋人、宋人、秦人）</td><td>贬——不配称爵</td><td>"晋人及姜戎败秦师于崤"</td></tr>
+  <tr><td><strong>称"子"</strong>（楚子）</td><td>按最初封爵，不承认其自称</td><td>楚自称"王"，《春秋》始终称"楚子"</td></tr>
+</table>
+<p><strong>楚国是称谓笔法最典型的案例。</strong>楚国早已自称"王"（与周天子平起），但《春秋》从未称过"楚王"——永远是"楚子"。这是孔子对楚国僭越的根本否定。你叫自己什么不重要，你被封为什么才是你该有的称呼——"正名"思想最具体的体现。崤之战晋襄公亲自统兵且大胜，本该写"晋侯"，经文却写"晋人"——因为丧期作战且打伏击，两个字把国君降格为"人"。</p>
+
+<h3>（五）记不记日月大有讲究：日月之例</h3>
+<p>三传中<strong>穀梁传</strong>对日月最敏感。详记日月（"夏五月辛丑"）——连具体日子都写出来——说明被高度重视，通常附有褒义。只记月份不记日子（"夏五月"）或只记季节（"夏"），则可能表示不被认可。这种解读在历史上争议很多，但在汉代经学中曾是春秋学的核心问题之一。</p>
+
+<h3>（六）笔法背后的价值观</h3>
+<ol>
+  <li><strong>正名</strong>——君君臣臣父父子子。重新确立每个名分对应的责任和边界。</li>
+  <li><strong>尊王</strong>——维护周天子名分。哪怕周室衰微，"周德虽衰，天命未改"。</li>
+  <li><strong>礼是最高标准</strong>——判断是非不靠输赢、不靠利益，靠是否合礼。宋襄公败了公羊夸他"临大事不忘大礼"，晋文公胜了却被评"谲而不正"。</li>
+  <li><strong>拨乱反正</strong>——孔子不是在记录乱世，而是在乱世中立法。</li>
+</ol>
+<blockquote>公羊学说《春秋》<strong>"一字之褒，荣于华衮；一字之贬，严于斧钺"</strong>——一个字的表扬，比穿华贵的礼服还荣耀；一个字的贬斥，比斧钺加身还严厉。孔子用一万八千字，给242年的天下人排了座次、判了是非。</blockquote>
+
+</div><!-- end panel-bifa -->
+
+<!-- ═══════════ PANEL: 人物谱系 ═══════════ -->
+<div class="panel" id="panel-renwu">
+
+<h2>人物谱系</h2>
+
+<h3 id="char-lu">鲁国：十二公与三桓</h3>
+<ul class="tree">
+  <li><span class="node">鲁惠公</span>
+    <ul>
+      <li><span class="node">鲁隐公</span> <span class="note">前722-712，被弑</span></li>
+      <li><span class="node">鲁桓公</span> <span class="note">前711-694，被齐襄公杀</span>
+        <ul>
+          <li><span class="node">鲁庄公</span> <span class="note">前693-662</span>
+            <ul>
+              <li><span class="node">鲁闵公</span></li>
+              <li>季友 → <span class="node">鲁僖公</span> → 鲁文公 → 鲁宣公 → 鲁成公 → <span class="node">鲁襄公</span>
+                <ul>
+                  <li><span class="node">鲁昭公</span> <span class="note">被三桓驱逐</span></li>
+                  <li><span class="node">鲁定公</span> → <span class="node">鲁哀公</span> <span class="note">获麟</span></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>庆父 → <strong>孟孙氏</strong> <span class="note">"庆父不死鲁难未已"</span></li>
+          <li>叔牙 → <strong>叔孙氏</strong> <span class="note">叔孙氏始祖</span></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+<table>
+  <tr><th>氏族</th><th>始祖</th><th>代表人物</th><th>关键信息</th></tr>
+  <tr><td>季孙氏</td><td>季友</td><td>季文子、季武子、季平子</td><td>最强，三桓之首，专鲁政最久</td></tr>
+  <tr><td>孟孙氏</td><td>庆父</td><td>孟献子</td><td>庆父后裔，地位次之</td></tr>
+  <tr><td>叔孙氏</td><td>叔牙</td><td>叔孙豹、叔孙婼</td><td>三桓中实力最弱</td></tr>
+</table>
+
+<h3 id="char-jin">晋国：姬姓霸主</h3>
+<ul class="tree">
+  <li><span class="node">晋献公</span> <span class="note">前676-651，"骊姬之乱"</span>
+    <ul>
+      <li>太子申生 <span class="note">被骊姬逼死</span></li>
+      <li><span class="node">公子重耳（晋文公）</span> <span class="note">前636-628，春秋第二霸</span>
+        <ul>
+          <li>赵衰 → 赵盾 → ... → 赵无恤 <span class="note">三家分晋</span></li>
+          <li>狐偃 <span class="note">舅父+首席谋臣</span></li>
+          <li>先轸 <span class="note">中军帅，城濮+崤之战统帅</span></li>
+        </ul>
+      </li>
+      <li>公子夷吾（晋惠公）→ 晋怀公 <span class="note">被文公杀</span></li>
+      <li>奚齐、卓子 <span class="note">骊姬所生，皆被杀</span></li>
+    </ul>
+  </li>
+</ul>
+<p>晋文公后的主要卿族（"十一卿→六卿→三卿"）：<span class="char-badge">赵氏</span><span class="char-badge">魏氏</span><span class="char-badge">韩氏</span>（以上三家最后瓜分晋国）<span class="char-badge">范氏</span><span class="char-badge">中行氏</span>（前490被灭）<span class="char-badge">智氏</span>（前453被灭）<span class="char-badge">郤氏</span>（前574被灭）<span class="char-badge">栾氏</span>（前550被灭）</p>
+
+<h3 id="char-qi">齐国：姜姓东方霸主</h3>
+<ul class="tree">
+  <li><span class="node">齐僖公</span> → <span class="node">齐襄公</span> <span class="note">淫乱被弑</span>
+    <ul>
+      <li>公子纠 <span class="note">管仲辅佐，失败被杀</span></li>
+      <li><span class="node">公子小白（齐桓公）</span> <span class="note">前685-643，春秋首霸</span>
+        <ul>
+          <li>管仲为相，"九合诸侯，一匡天下"</li>
+          <li>死后五子争立，尸虫出户</li>
+          <li>→ 齐顷公 → 齐灵公 → <span class="node">齐庄公</span> <span class="note">被崔杼弑</span>
+            <ul>
+              <li><span class="node">齐景公</span> <span class="note">晏婴为相</span> → ... → 田氏代姜</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="char-chu">楚国：芈姓南方霸主</h3>
+<ul class="tree">
+  <li><span class="node">楚武王</span> <span class="note">始称王</span> → 楚成王 <span class="note">被太子商臣弑</span> → 楚穆王 <span class="note">弑父</span> → <span class="node">楚庄王</span> <span class="note">前613-591，五霸之一，问鼎中原、邲之战</span>
+    <ul>
+      <li>楚共王 → 楚康王 → 郏敖</li>
+      <li>楚灵王 <span class="note">弑君自立，后被弃疾所杀</span></li>
+      <li>楚平王（弃疾）<span class="note">杀伍奢伍尚</span>
+        <ul>
+          <li><span class="node">楚昭王</span> <span class="note">吴破郢都，申包胥哭秦庭</span></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="char-qin">秦国 + 郑国 + 宋国</h3>
+<p><strong>秦</strong>：非子始封 → 秦襄公（护送平王东迁，正式受封） → <strong>秦穆公</strong>（前659-621，五霸之一，崤之战败后"遂霸西戎"）。与晋长期通婚，"秦晋之好"，崤之战后转为世仇。</p>
+<p><strong>郑</strong>：郑桓公（周宣王弟） → 郑武公（娶姜氏） → <strong>郑庄公</strong>（春秋初"小霸"，射伤周桓王） → ... → <strong>子产</strong>（前543-522执政，中兴）。战国初为韩所灭。</p>
+<p><strong>宋</strong>：微子启（纣王庶兄） → ... → <strong>宋襄公</strong>（前650-637，泓之战重伤而死） → ... → 战国。</p>
+
+<h3 id="char-wuyue">吴越：后起之秀</h3>
+<div class="card" style="margin-bottom:16px;"><strong>吴国（姬姓）</strong>
+<ul class="tree">
+  <li><span class="node">寿梦</span>
+    <ul>
+      <li>季札 <span class="note">让国不受，延陵季子</span></li>
+      <li>诸樊 → 馀祭 → 馀昧 → <span class="node">吴王僚</span> <span class="note">被专诸刺死</span></li>
+      <li><span class="node">阖闾</span>（公子光）<span class="note">用伍子胥+孙武，破楚入郢</span>
+        <ul>
+          <li><span class="node">夫差</span> <span class="note">前495-473，为勾践所灭</span></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+<div class="card"><strong>越国（姒姓）</strong>
+<ul class="tree">
+  <li>允常 → <span class="node">勾践</span> <span class="note">前496-465，卧薪尝胆灭吴</span>
+    <ul>
+      <li>文种 <span class="note">被赐死</span></li>
+      <li>范蠡 <span class="note">泛舟而去</span></li>
+    </ul>
+  </li>
+</ul>
+</div>
+
+<h3 id="char-cross">跨国联姻网络（选例）</h3>
+<table>
+  <tr><th>婚姻</th><th>关系</th><th>影响</th></tr>
+  <tr><td>秦穆公娶晋献公女（伯姬）</td><td>秦→晋</td><td>"秦晋之好"之始</td></tr>
+  <tr><td>晋文公娶秦穆公女（文嬴）</td><td>晋←秦</td><td>穆公助重耳归国即位</td></tr>
+  <tr><td>鲁桓公娶齐僖公女（文姜）</td><td>鲁←齐</td><td>文姜与兄齐襄公私通，桓公因此被杀</td></tr>
+  <tr><td>晋怀公娶秦穆公女（怀嬴）</td><td>晋←秦</td><td>后怀嬴改嫁重耳（叔侄娶同一女）</td></tr>
+</table>
+
+</div><!-- end panel-renwu -->
+
+<!-- ═══════════ PANEL: 故事 ═══════════ -->
+<div class="panel" id="panel-gushi">
+
+<h2>故事十六篇</h2>
+<p style="color:var(--muted)">每篇结构：经文 → 左传叙事 → 公羊/穀梁解读 → 出场人物 → 要点</p>
+
+<!-- STORY 01 -->
+<div class="story-card" id="story-01">
+<div class="story-header"><h3>一、郑伯克段于鄢</h3><div class="story-meta">隐公元年 · 前722年 · 春秋开篇</div></div>
+<div class="story-body">
+<h4>经文</h4>
+<blockquote>夏五月，<strong>郑伯克段于鄢</strong>。——九个字。</blockquote>
+<h4>左传叙事</h4>
+<p>郑武公娶姜氏，生庄公与共叔段。姜氏爱少子，屡请立段为太子，武公不许。庄公即位后，姜氏为段请封于京邑。段不断扩张势力，大夫祭仲、公子吕反复谏庄公早除后患。庄公只说：<strong>"多行不义必自毙，子姑待之。"</strong>段终起兵叛乱，姜氏将为内应。庄公出兵，段败走鄢地，出奔共国。庄公将母亲软禁，发誓"不及黄泉无相见也"，后又后悔。颍考叔以孝道劝说，庄公掘地及泉、隧而相见，母子复好。</p>
+<h4>公羊传</h4><p>用"克"而不用"杀"——"大郑伯之恶也"，放大庄公的罪恶。称"郑伯"不称"郑人"——由庄公一人承担杀弟之责。段不称"弟"——段失子弟之道。</p>
+<h4>穀梁传</h4><p>"克"者能也——能杀也。庄公本应教化弟弟，却选择了杀，这是<strong>失教</strong>。追到偏远的鄢地去杀，"犹曰取之其母之怀中而杀之"。</p>
+<h4>人物</h4><p><span class="char-badge">郑庄公</span><span class="char-badge">共叔段</span><span class="char-badge">武姜</span><span class="char-badge">祭仲</span><span class="char-badge">公子吕</span><span class="char-badge">颍考叔</span></p>
+<h4>要点</h4><p>三传一致认定庄公有罪，但罪名不同：左传说是政治阴谋，公羊说是骨肉相残，穀梁说是礼教缺失。同一个"克"字，三重深度。<a href="#sec-compare">→ 三传对比详情</a></p>
+</div></div>
+
+<!-- STORY 02 -->
+<div class="story-card" id="story-02">
+<div class="story-header"><h3>二、曹刿论战</h3><div class="story-meta">庄公十年 · 前684年 · 长勺之战</div></div>
+<div class="story-body">
+<h4>经文</h4>
+<blockquote>十年春，王正月，<strong>公败齐师于长勺</strong>。</blockquote>
+<h4>左传叙事</h4>
+<p>齐桓公伐鲁。曹刿请见庄公，其乡人曰："肉食者谋之，又何间焉？"曹刿曰：<strong>"肉食者鄙，未能远谋。"</strong>入见庄公，三问"何以战"：衣食分人——"小惠未遍"；牺牲玉帛必信——"小信未孚"；小大之狱必以情——"忠之属也，可以一战。"两军对阵于长勺，曹刿令庄公待齐人三鼓后方击鼓，齐师败绩。战后释疑：<strong>"夫战，勇气也。一鼓作气，再而衰，三而竭。彼竭我盈，故克之。"</strong>又曰：大国难测，惧有伏焉——"吾视其辙乱，望其旗靡，故逐之。"</p>
+<h4>公羊/穀梁</h4><p>公羊赞鲁庄公在乾时之败后能奋起复仇，是孝的表现。穀梁认为鲁为守国而战，"败"字暗含褒扬——曹刿代表了贤士在国家危亡之际挺身而出的理想。</p>
+<h4>人物</h4><p><span class="char-badge">曹刿（曹沫）</span><span class="char-badge">鲁庄公</span><span class="char-badge">齐桓公</span></p>
+<h4>要点</h4><p>"肉食者鄙"是中国散文第一次尖锐批判统治阶层。曹刿战术——勇气管理+防伏兵——是"贵族战争"向"谋略战争"过渡的经典案例。庄公真正的筹码是司法公正（小大之狱必以情），不是恩赐。</p>
+</div></div>
+
+<!-- STORY 03 -->
+<div class="story-card" id="story-03">
+<div class="story-header"><h3>三、齐桓公霸业</h3><div class="story-meta">前685–643年 · 春秋首霸 · 在位43年</div></div>
+<div class="story-body">
+<h4>即位：惊险开局</h4>
+<p>齐襄公被弑，公子纠（鲁国，管仲辅佐）与公子小白（莒国，鲍叔牙辅佐）争先回国。管仲半路截击，一箭射中小白带钩。小白咬破舌头假装中箭而死，待纠松懈后疾驰入齐抢先即位——是为齐桓公。鲍叔牙力荐管仲："君欲霸王，非管夷吾不可。"桓公从囚车中迎出管仲，拜为大夫。</p>
+<h4>尊王攘夷</h4>
+<p>管仲设计的霸业核心：<strong>尊王</strong>（借天子名义号令诸侯）+ <strong>攘夷</strong>（整合中原力量抵抗夷狄）。关键事迹：<strong>柯之盟</strong>（曹沫劫持，桓公守信归还鲁地）→ <strong>救燕伐山戎</strong>（割地给燕国以守礼）→ <strong>救邢救卫</strong>（"存亡继绝"，孔子："微管仲，吾其被发左衽矣"）→ <strong>召陵之盟</strong>（率中原诸侯联军逼楚妥协）→ <strong>葵丘之会</strong>（前651霸业顶峰，周天子赐胙，桓公坚持下拜）。</p>
+<h4>霸业谢幕</h4>
+<p>管仲临终告诫：易牙（烹子以悦君）、竖刁（自宫以事君）、开方（弃父以事君）三人不可信任。桓公不纳。前643年桓公病重，五子争立——尸在床上六十七日无人收殓，蛆虫爬出门外。霸业轰然倒塌。</p>
+<h4>公羊/穀梁</h4><p>公羊对管仲评价极高——"九合诸侯，不以兵车"，称为"仁者"。穀梁赞葵丘盟约是"正天下"的制度建设。</p>
+<h4>人物</h4><p><span class="char-badge">齐桓公</span><span class="char-badge">管仲</span><span class="char-badge">鲍叔牙</span><span class="char-badge">易牙</span><span class="char-badge">竖刁</span><span class="char-badge">屈完（楚大夫）</span></p>
+<h4>要点</h4><p>"尊王攘夷"模式被后世反复使用——曹操"挟天子以令诸侯"是其变体。霸业的根基是管仲，设计师和执行者都是管仲——他死后霸业瞬间坍塌。齐桓公死时尸虫出户是春秋至暗画面之一。</p>
+</div></div>
+
+<!-- STORY 05 -->
+<div class="story-card" id="story-05">
+<div class="story-header"><h3>五、晋文公流亡与城濮之战</h3><div class="story-meta">流亡前655–636 · 城濮前632年 · 春秋第二霸</div></div>
+<div class="story-body">
+<h4>流亡（19年，8国）</h4>
+<p>晋献公宠骊姬，逼死太子申生，重耳出逃。<strong>狄</strong>（12年，娶妻生子）→ <strong>卫</strong>（五鹿农夫给土块，狐偃说是"得国之兆"）→ <strong>齐</strong>（齐桓公厚待，姜氏杀侍女、灌醉重耳强行带走——<strong>"怀与安，实败名"</strong>）→ <strong>曹</strong>（曹共公偷看洗澡）→ <strong>郑</strong>（叔詹预言"天将启之"）→ <strong>楚</strong>（楚成王问何以报，重耳答：<strong>"退避三舍"</strong>——一舍三十里，三舍九十里）→ <strong>秦</strong>（秦穆公助其归国）。前636年即位，时62岁。</p>
+<h4>城濮之战（前632）</h4>
+<p>楚围宋，宋向晋求救。狐偃提出"伐曹卫以救宋"。晋文公伐曹（俘虏偷看洗澡的曹共公）、卫。先轸策划复杂外交操作使齐秦站到晋一边。楚成王知不可为令子玉退兵，子玉不肯。晋文公<strong>退避三舍</strong>——兑现19年前对楚成王的承诺。子玉以为晋军怕了，骄气更盛。四月决战：先击楚右翼（陈蔡联军，一触即溃）→ 右翼佯败（狐毛树大旗伪装中军，栾枝车拖树枝扬尘做溃退状）→ 楚左翼（子西）追击被晋中军与上军合击溃败 → 子玉中军撤退。晋大胜。践土之盟：周襄王亲自到场，册命晋文公为侯伯。子玉自杀。</p>
+<h4>三传视角</h4><p>公羊："桓公为正，文公为谲"——齐桓公是正霸，晋文公是谲霸。践土之盟经文写"天王狩于河阳"而非"晋侯召王"，是为晋文公讳（<a href="#sec-bifa">→ 讳笔</a>）。穀梁批评更直接——"退避三舍"虽为守信，但召天子是僭越。</p>
+<h4>人物</h4><p><span class="char-badge">晋文公（重耳）</span><span class="char-badge">狐偃</span><span class="char-badge">赵衰</span><span class="char-badge">先轸</span><span class="char-badge">子玉</span><span class="char-badge">楚成王</span><span class="char-badge">姜氏（齐女）</span><span class="char-badge">曹共公</span></p>
+<h4>要点</h4><p>62岁即位的霸主——年龄不是上限。流亡是逆向学校——"怀与安实败名"。城濮是"智胜"（避实击虚、佯败扬尘），宋襄公"不鼓不成列"才过去6年——战争理念已彻底翻转。</p>
+</div></div>
+
+<!-- STORY 06 -->
+<div class="story-card" id="story-06">
+<div class="story-header"><h3>六、烛之武退秦师</h3><div class="story-meta">僖公三十年 · 前630年 · 城濮次年</div></div>
+<div class="story-body">
+<h4>经文</h4><blockquote>三十年春王正月，<strong>晋人、秦人围郑</strong>。</blockquote>
+<h4>左传叙事</h4>
+<p>城濮之战郑站队楚国（站错了），晋文公联合秦穆公出兵围郑。晋军驻函陵，秦军驻氾南。郑国危急。大夫佚之狐推荐<strong>烛之武</strong>——一个从未被重用的老人。烛之武推辞："臣之壮也犹不如人，今老矣无能为也已。"郑文公说："吾不能早用子，是寡人之过也。然郑亡，子亦有不利焉。"</p>
+<p>当夜烛之武被绳子从城墙上吊下（城门已封），潜入秦营，对秦穆公说了一段中国外交辞令的顶峰之语：<strong>"越国以鄙远，君知其难也。焉用亡郑以陪邻？邻之厚，君之薄也。"</strong>（秦国和郑国隔着晋国——灭郑就是给晋国增加土地，邻居富了就是您自己穷了。）<strong>"若舍郑以为东道主，行李之往来，共其乏困，君亦无所害。"</strong>（放过郑国，让它做您东方道路上的接待站。这是"东道主"一词的原始出处。）转而提醒晋国从来不讲信用——<strong>"夫晋，何厌之有？"</strong>秦穆公当场决定单方面撤军。晋国孤掌难鸣，亦退兵。郑国保全。</p>
+<h4>要点</h4><p>烛之武没有求情，没有讲"郑国可怜"。他不带感情地把地图打开做地缘分析。他特别提到晋惠公"朝济而夕设版"（答应割地、过河就筑城反悔）的旧账——精确击中秦对晋的不信任。这场单方面撤兵埋下了两年后秦晋崤之战的引信。</p>
+</div></div>
+
+<!-- STORY 07 -->
+<div class="story-card" id="story-07">
+<div class="story-header"><h3>七、秦晋崤之战</h3><div class="story-meta">僖公三十三年 · 前627年 · 秦晋之好终结</div></div>
+<div class="story-body">
+<h4>经文</h4><blockquote>夏四月辛巳，<strong>晋人及姜戎败秦师于崤</strong>。</blockquote>
+<h4>左传叙事</h4>
+<p>晋文公刚去世（前628年冬）。秦国留在郑国"协防"的大夫杞子送来密报："我可以打开郑国北门——如果潜师而来，可得郑国。"秦穆公心动。老臣<strong>蹇叔</strong>坚决反对：<strong>"劳师以袭远，非所闻也。师劳力竭，远主备之。且行千里，其谁不知？"</strong>穆公不听。蹇叔哭着送别出征的军队："吾见师之出而不见其入也！"穆公怒骂："你懂什么！你要是活到一般寿数，坟头的树都有合抱粗了！"蹇叔又哭着送儿子："晋人御师必于崤——必死是间，余收尔骨焉。"</p>
+<p>秦师过周王室北门，将士敷衍地跳下战车（不礼）。年幼的<strong>王孙满</strong>在城墙上说："秦师轻而无礼，必败。"秦师至滑国，郑国商人<strong>弦高</strong>在路上遇到秦军，立即判断对方目标是郑国——假称自己是郑国使者，用四张牛皮和十二头牛犒劳秦师，同时派人疾驰回国报信。秦帅孟明视知道奇袭已败露，灭了滑国回师西归。</p>
+<p>晋国中军帅<strong>先轸</strong>力主截击："一日纵敌，数世之患。"晋襄公穿黑色丧服（墨绖）统军，在<strong>崤山</strong>狭谷设伏。秦军全军覆没，三帅（孟明视、西乞术、白乙丙）被俘。晋襄公嫡母<strong>文嬴</strong>（秦穆公之女）说情释放三人。先轸大怒："武夫力而拘诸原，妇人暂而免诸国——亡无日矣！"在朝堂上吐了口唾沫（极度不敬，后来此自责卸甲冲入狄阵战死）。孟明视在黄河船上对追来的晋使说：<strong>"三年将拜君赐。"</strong>（三年后我来"报答"——这话后来应验，秦伐晋多次。）秦穆公穿素服在郊外迎接败军：<strong>"孤违蹇叔以辱二三子，孤之罪也。吾不以一眚掩大德。"</strong>继续信任孟明视。秦最终"遂霸西戎"。</p>
+<h4>要点</h4><p>崤之战的核心是"劳师袭远"四字——千里远征不可能保密。蹇叔的战略判断→王孙满的观察→弦高的临危应变→先轸的果决截击→穆公的领袖担当——一条完整因果链。秦晋之好从此转为世仇，此后两百年战争不断。</p>
+</div></div>
+
+<!-- STORY 08 -->
+<div class="story-card" id="story-08">
+<div class="story-header"><h3>八、赵盾弑其君</h3><div class="story-meta">宣公二年 · 前607年 · 董狐直笔</div></div>
+<div class="story-body">
+<h4>经文</h4>
+<blockquote>秋九月乙丑，<strong>晋赵盾弑其君夷皋</strong>。</blockquote>
+<h4>左传叙事</h4>
+<p>赵盾（赵宣子）执掌晋国朝政。晋灵公暴虐：厚敛雕墙、从台上弹人取乐、杀厨师。赵盾多次进谏，灵公口头答应却无改变。灵公派刺客鉏麑刺杀赵盾——鉏麑清晨到赵府，见赵盾已穿戴整齐准备上朝，端正坐着打盹。鉏麑退出来叹息："不忘恭敬，民之主也。贼民之主不忠，弃君之命不信。"撞槐树自杀。</p>
+<p>灵公摆宴埋伏甲士。车右提弥明察觉扶赵盾离席，搏杀恶犬后战死。危急时刻，甲士中一人倒转兵器保护赵盾——此人名灵辄，赵盾曾在翳桑树下救过饿昏的他。灵辄只说了四个字：<strong>"翳桑之饿人也"</strong>然后离去。赵盾出逃，还没越过国境，堂弟<strong>赵穿</strong>在桃园杀了晋灵公。太史<strong>董狐</strong>在史书上写：<strong>"赵盾弑其君。"</strong>赵盾质问。董狐说："子为正卿，亡不越竟，反不讨贼——非子而谁？"孔子后来评价："董狐，古之良史也，书法不隐。赵宣子，古之良大夫也，为法受恶。惜也，越竟乃免。"</p>
+<h4>公羊传</h4><p>赵盾"知而容之"——知道赵穿要弑君没有阻止，这就是弑。没出境就不算真正出奔，经文不以"出奔"对待他。</p>
+<h4>要点</h4><p>赵盾没杀灵公，但经文说"赵盾弑其君"。这是政治责任论，不是事实罪责论——你是执政，你没跑远，你不讨贼，三道关卡都通不过就由你负责。鉏麑与灵辄两个底层人为赵盾的人品做了最好的注脚。<a href="#sec-bifa">→ 直书其罪的笔法逻辑</a></p>
+</div></div>
+
+<!-- STORY 09 -->
+<div class="story-card" id="story-09">
+<div class="story-header"><h3>九、楚庄王问鼎</h3><div class="story-meta">宣公三年 · 前606年 · 赵盾弑君次年</div></div>
+<div class="story-body">
+<h4>背景</h4>
+<p>楚庄王即位头三年"不出号令日夜为乐"，下令"有敢谏者死无赦"。伍举入谏："有鸟在于阜，三年不蜚不鸣——是何鸟也？"庄王答：<strong>"三年不蜚，蜚将冲天；三年不鸣，鸣将惊人。"</strong>此后任用孙叔敖，国力大振。</p>
+<h4>问鼎</h4>
+<p>楚庄王出兵讨伐陆浑之戎（在洛邑附近——打到周天子家门口）。伐戎后在洛邑郊外举行阅兵（"观兵于周疆"）。周定王派大夫<strong>王孙满</strong>去劳军。庄王开口问了看似不经意的一句话：<strong>"鼎之大小轻重焉？"</strong>——九鼎是天命的物质象征，问鼎等于问"取代周室需要多少实力"。</p>
+<p>王孙满回答：<strong>"在德不在鼎。"</strong>然后讲了鼎的历史——夏有德铸九鼎，桀昏德鼎迁于商，纣暴虐鼎迁于周。最后一句定场：<strong>"周德虽衰，天命未改。鼎之轻重，未可问也。"</strong>楚庄王没有反驳。他退兵了。九年后（前597）在邲之战中大败晋军，以军事实力确立了霸权。</p>
+<h4>要点</h4>
+<p>"在德不在鼎"是春秋核心政治哲学——统治合法性不来自武力而来自"德"。王孙满给出了"天命可变但标准不变"的框架。庄王拥有灭周的实力却没动手。</p>
+</div></div>
+
+<!-- STORY 10 -->
+<div class="story-card" id="story-10">
+<div class="story-header"><h3>十、晋楚邲之战</h3><div class="story-meta">宣公十二年 · 前597年 · 楚庄王称霸之战</div></div>
+<div class="story-body">
+<h4>经文</h4>
+<blockquote>夏六月乙卯，<strong>晋荀林父帅师及楚子战于邲，晋师败绩</strong>。</blockquote>
+<h4>左传叙事</h4>
+<p>楚庄王围郑，郑降楚。晋军来救郑时郑已降，两军在邲地相遇。晋军统帅层分裂：荀林父（统帅）主退——郑已降无战略目标；先縠（副帅）主战——"由我失霸不如死"，擅自带所部渡过黄河；士会主退——楚庄王用孙叔敖治国军政一体不易攻。荀林父无法控制先縠，被迫全军跟进。楚庄王派少宰到晋营试探发现晋军号令不一。</p>
+<p>决战：楚军战车经孙叔敖改良编队后冲击力更强，晋军各部队缺乏统一指挥。下军率先逃跑，全军崩盘。溃兵逃到黄河边争抢渡船，船上士兵用刀砍攀船的手指——<strong>"舟中之指可掬也"</strong>（船里被砍下的手指多到可以捧起来）。</p>
+<p>战后有人建议楚庄王收集晋军尸体筑"京观"。庄王拒绝：<strong>"夫文——止戈为武。"</strong>他分析"武"的七德——禁暴、戢兵、保大、定功、安民、和众、丰财——然后说"武有七德我无一焉"。下令为晋军收尸安葬，率师返回。</p>
+<h4>三传视角</h4><p>公羊对庄王极度赞美——战胜不追杀败军，有"王者之风"。称"庄王"而非"楚子"在公羊传中极罕见。穀梁更关注经文称"荀林父"而非爵位——贬其不能控制部下。</p>
+<h4>要点</h4><p>邲之战的精髓在战前——统帅层彻底分裂→先縠擅自行动→荀林父被迫跟进→全军溃败。这是军事指挥反面教材。"止戈为武"是中国最早的和平主义军事哲学表述。</p>
+</div></div>
+
+<!-- STORY 11 -->
+<div class="story-card" id="story-11">
+<div class="story-header"><h3>十一、齐晋鞍之战</h3><div class="story-meta">成公二年 · 前589年 · 一场笑声引发的战争</div></div>
+<div class="story-body">
+<h4>起因</h4>
+<p>晋正卿郤克是跛子。前592年出使齐国，齐顷公让跛子侍者引导，让母亲萧同叔子在帷幕后观看——妇人们笑出声来。郤克在河神前发誓：<strong>"所不此报，无能涉河！"</strong>前589年齐先伐鲁，晋出兵援鲁。</p>
+<h4>战斗</h4>
+<p>齐顷公轻敌：<strong>"吾故灭此而朝食。"</strong>（"灭此朝食"成语出处）不给马披甲就出战。郤克被箭射中血流到脚仍坚持击鼓。御者张侯手被箭贯穿仍折箭驾车：<strong>"左轮朱殷——岂敢言病？"</strong>换左手握缰、用受伤右手帮郤克击鼓。晋军听见帅鼓不息全军猛冲——齐军大败。车右逢丑父与齐顷公换位让国君逃跑，自己甘当俘虏。</p>
+<h4>战后谈判</h4><p>郤克要求萧同叔子到晋做人质。齐大夫国佐回答："萧同叔子非他——寡君之母也。若以匹敌则亦晋君之母也。必质其母以为信，其若王命何？"郤克放弃。</p>
+<h4>要点</h4><p>一场笑声引发一场战争。郤克中箭击鼓、张侯折箭驾车——军事意志的力量。"灭此朝食"与"左轮朱殷"的对照：一边是轻敌，一边是用命。</p>
+</div></div>
+
+<!-- STORY 12 -->
+<div class="story-card" id="story-12">
+<div class="story-header"><h3>十二、晋楚鄢陵之战</h3><div class="story-meta">成公十六年 · 前575年 · 晋楚最后一波大战</div></div>
+<div class="story-body">
+<h4>经文</h4>
+<blockquote>甲午晦，<strong>晋侯及楚子、郑伯战于鄢陵。楚子、郑师败绩</strong>。</blockquote>
+<h4>左传叙事</h4>
+<p>楚共王联合郑国出兵，晋厉公亲征。晋军统帅层再次分歧：范文子（士燮）主避——"内忧大于外患"；郤至主战，分析楚军有<strong>"六间"</strong>（六个可乘之机）：二卿相恶、王卒以旧、郑陈而不整、蛮军而不陈、陈不违晦、在陈而嚣。</p>
+<p>决战中晋将吕锜一箭射中<strong>楚共王眼睛</strong>。共王忍着剧痛呼唤神射手<strong>养由基</strong>——养由基一箭毙吕锜。但楚军失去共王指挥后各部失序。晋军正面猛攻、左军包抄侧翼。楚军溃败。战后范文子的悲观被证明正确——鄢陵胜利没有巩固晋国，反而加剧内部权力斗争：郤至被谗杀、厉公被弑。</p>
+<h4>要点</h4><p>郤至"六间"分析是春秋最著名的敌情判断之一。范文子"内忧大于外患"比主战派更深刻。邲之战（前597楚胜）→鄢陵（前575晋胜）→弭兵（前546和解）完整收束了百年争霸。</p>
+</div></div>
+
+<!-- STORY 13 -->
+<div class="story-card" id="story-13">
+<div class="story-header"><h3>十三、子产相郑</h3><div class="story-meta">前543年执政 · 前522年卒 · 执政21年</div></div>
+<div class="story-body">
+<h4>背景</h4><p>郑国地处中原腹地，夹在晋楚之间，春秋史上被围攻次数最多。子产（公孙侨）是郑穆公之孙，前543年开始执政。</p>
+<h4>铸刑书（前536）</h4>
+<p>中国历史上第一个把成文法<strong>铸在鼎上公布</strong>的人。此前法律不公开——"刑不可知则威不可测"。贵族靠对法律的独占来解释和审判。晋国大夫叔向写信长篇反对："民知有辟则不忌于上""弃礼而征于书"。子产回信极简短：<strong>"若吾子之言——侨不才，不能及子孙。吾以救世也。"</strong></p>
+<h4>不毁乡校</h4>
+<p>郑国有乡校——既是学校又是国人的公共舆论场所，有人在此议论执政得失。大夫然明建议毁掉。子产说：<strong>"其所善者吾则行之，其所恶者吾则改之——是吾师也。若之何毁之？"</strong>（听到批评就当作药。）孔子评价："人谓子产不仁，吾不信也。"</p>
+<h4>宽猛相济</h4>
+<p>子产临终对继任者子大叔说："唯有德者能以宽服民，其次莫如猛。夫火烈，民望而畏之故鲜死焉。水懦弱，民狎而玩之则多死焉。"子大叔继位后先以宽仁治国，盗贼蜂起，悔之转用猛。孔子评论：<strong>"宽以济猛，猛以济宽，政是以和。"</strong></p>
+<h4>要点</h4><p>子产铸刑书开启了中国从"礼治"到"法治"的过渡。不毁乡校是中国古代最早的"言论自由"论证。他的"宽猛相济"揭示了一个冷酷的道理——仁政需要更高的道德基础才能有效。</p>
+</div></div>
+
+<!-- STORY 14 -->
+<div class="story-card" id="story-14">
+<div class="story-header"><h3>十四、季札观乐</h3><div class="story-meta">襄公二十九年 · 前544年 · "叹为观止"出处</div></div>
+<div class="story-body">
+<h4>经文</h4><blockquote><strong>吴子使札来聘</strong>。——《春秋》只此一句。</blockquote>
+<h4>左传叙事</h4>
+<p>季札是吴王寿梦第四子，以贤德著称——三次让国不受。前544年出使中原，路过鲁国时请求聆听周乐。鲁国乐工为他演奏了《诗经》全部乐曲及上古乐舞。季札对每一段发表评论——这是中国最早的、成系统的音乐批评文献。</p>
+<p>听《郑风》："其细已甚，民弗堪也。是其先亡乎？"听《齐风》："泱泱乎大风也哉！国未可量也。"听《秦风》："此之谓夏声。能夏则大——大之至也！"（能吸收华夏文明就能壮大，秦的未来不可限量。）</p>
+<p>听《颂》时他说了一段十四"不"的铺排："直而不倨，曲而不屈，迩而不逼，远而不携……"——总结了中和之美的极致境界。最后看舜的《韶》舞时说：<strong>"德至矣哉！如天之无不帱也，如地之无不载也。观止矣！若有他乐，吾不敢请已。"</strong>——这就是<strong>"叹为观止"</strong>的出典。</p>
+<p>离开鲁国后季札出使齐、郑、卫、晋等国，每到一处都留下精当预言：在齐劝晏婴交还封邑避祸（晏婴听从）；在郑见子产"如旧相识"，预言他将执政（一年后应验）；在晋预言政权将落入赵韩魏三家之手（三家分晋——后被证实）。</p>
+<h4>要点</h4><p>季札是中国第一个系统的文艺批评家——从音乐中看到各国的政治走向和民众心理。他不是在"听音乐"，是在听"国运"。他的预言全部应验——左传用季札的"知音"来暗示"知政"。</p>
+</div></div>
+
+<!-- STORY 15 -->
+<div class="story-card" id="story-15">
+<div class="story-header"><h3>十五、崔杼弑其君</h3><div class="story-meta">襄公二十五年 · 前548年 · 齐太史三兄弟</div></div>
+<div class="story-body">
+<h4>经文</h4>
+<blockquote>夏五月乙亥，<strong>齐崔杼弑其君光</strong>。</blockquote>
+<h4>左传叙事</h4>
+<p>崔杼娶了棠姜（寡妇，貌美）。齐庄公与棠姜私通——不止一次，甚至拿着崔杼的帽子赐给别人羞辱崔杼。崔杼决心弑君。</p>
+<p>前548年夏，庄公借"探病"之名来到崔府——其实是找棠姜。崔杼埋伏的甲士一拥而出。庄公翻墙逃跑被箭射中大腿，坠下墙来被杀死。</p>
+<p>弑君之后：齐国太史在简册上写道——<strong>"崔杼弑其君。"</strong>崔杼杀了太史。太史的二弟继任，又写。崔杼又杀。太史的三弟继任，再次写下这五个字。崔杼没有再杀。齐国的太史家族用三条人命把这五个字留在了史书之上。与此同时，南史氏（另一位史官）听说太史家被接连杀光，抱着简册从外地赶往都城准备接力——半路听说三弟已成功记载，这才返回。</p>
+<p><strong>晏婴</strong>站在崔杼门外。随从问："您要殉死吗？"晏婴说：<strong>"君为社稷死则死之，为社稷亡则亡之。若为己死而为己亡——非其私昵，谁敢任之？"</strong>（君主为国家而死我陪他死。如果为了私欲而死——除了私人亲信，谁敢承担？）崔杼没有杀他——"民之望也，杀之舍民。"</p>
+<h4>结局</h4><p>崔杼立齐景公后大权旁落庆封手中。庆封挑动崔杼家族内讧，趁机灭其全家。棠姜上吊。崔杼发现家已成废墟——也上了吊。</p>
+<h4>要点</h4><p>三条人命一个家族——就为了在历史上留下"崔杼弑其君"五个字。这是中国史学独立的象征性事件。晏婴区分"为社稷死"和"为己死"——中国政治思想中"社稷高于君主"观念的早期表达。公羊的冷硬逻辑：即使庄公私通崔杼之妻，臣也不能弑君——打开这个缺口整个秩序就会崩塌。<a href="#sec-bifa">→ 直书其罪</a></p>
+</div></div>
+
+<!-- STORY 16 -->
+<div class="story-card" id="story-16">
+<div class="story-header"><h3>十六、吴越争霸</h3><div class="story-meta">前506–473 · 春秋最后一幕 · 卧薪尝胆 · 狡兔死走狗烹</div></div>
+<div class="story-body">
+<h4>伍子胥奔吴</h4>
+<p>楚平王听信费无忌谗言冤杀伍子胥之父伍奢和兄长伍尚。伍子胥逃奔吴国，出昭关时须发一夜尽白。到吴后成为公子光（阖闾）的谋臣，推荐<strong>专诸</strong>以鱼肠剑刺吴王僚。阖闾即位后重用伍子胥和<strong>孙武</strong>。</p>
+<h4>破楚入郢（前506）</h4>
+<p>阖闾率吴军西征，孙武和伍子胥筹划。吴军攻入楚国都城郢都——春秋史上蛮夷边缘国家第一次攻破大国都城。伍子胥没有抓到已死的楚平王来报父仇，掘墓鞭尸三百。故交申包胥跑到秦国<strong>哭秦庭七日七夜</strong>——秦哀公终于感动出兵救楚。</p>
+<h4>夫差与勾践</h4>
+<p>阖闾伐越时被勾践斩断脚趾伤重而死。其子<strong>夫差</strong>继位，让人每天在门外喊："夫差！尔忘越人之杀尔父乎？"夫差答："唯——不敢忘！"三年后大败越军。勾践只剩五千甲士退保会稽山，卑辞求和。伍子胥力主灭越——"树德莫如滋，去疾莫如尽"——夫差不听。</p>
+<p>勾践归国后<strong>卧薪尝胆</strong>，用文种、范蠡，十年生聚十年教训。在此期间夫差一心北上争霸。伍子胥反复劝谏，夫差反而赐他属镂宝剑命他自刎。伍子胥临终说："挖出我的眼睛挂在东门上——我要亲眼看着越军进城。"</p>
+<p>前482年夫差北上黄池会盟中原诸侯，勾践趁虚袭吴攻入都城。前473年越军最终灭吴。夫差自杀，死前用布遮住脸：<strong>"吾无面目以见子胥也！"</strong>吴国灭亡。</p>
+<h4>余响：文种之死</h4>
+<p>范蠡灭吴后即离开勾践，泛舟而去。他写信给文种：<strong>"蜚鸟尽，良弓藏；狡兔死，走狗烹。越王为人长颈鸟喙，可与共患难，不可与共乐。"</strong>文种没有走。不久勾践赐剑："子教寡人伐吴七术——寡人用其三而败吴。其四在子——子为我从先王试之。"文种自杀。</p>
+<h4>要点</h4>
+<p>伍子胥是春秋晚期最具悲剧性的人物——从拼死复仇（破楚鞭尸）到忠心谏主到被赐死。卧薪尝胆与狡兔死走狗烹的对照揭示勾践"能忍不能容"的阴暗面。吴越争霸与三家分晋共同标志着春秋的结束和战国新格局的开端。</p>
+</div></div>
+
+</div><!-- end panel-gushi -->
+
+</main>
+
+<script>
+(function() {
+  const panels = document.querySelectorAll('.panel');
+  const navBtns = document.querySelectorAll('#topnav .nav-btn[data-panel]');
+  const brand = document.querySelector('#topnav .brand');
+  const storyLinks = document.querySelectorAll('.dropdown-panel a[data-story]');
+  function hideAll() {
+    panels.forEach(p => p.classList.remove('active'));
+    navBtns.forEach(b => b.classList.remove('active'));
+  }
+
+  function showPanel(id) {
+    hideAll();
+    const panel = document.getElementById(id);
+    if (panel) { panel.classList.add('active'); }
+  }
+
+  // Nav button clicks
+  navBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      const panelId = this.getAttribute('data-panel');
+      showPanel(panelId);
+      navBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Brand click → back to landing
+  brand.addEventListener('click', function() {
+    hideAll();
+    navBtns.forEach(b => b.classList.remove('active'));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Story dropdown clicks
+  storyLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const storyId = this.getAttribute('data-story');
+      showPanel('panel-gushi');
+      const storyBtn = document.querySelector('#topnav .nav-btn[data-panel="panel-gushi"]');
+      if (storyBtn) {
+        navBtns.forEach(b => b.classList.remove('active'));
+        storyBtn.classList.add('active');
+      }
+      // Scroll to story after panel renders
+      setTimeout(() => {
+        const el = document.getElementById(storyId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    });
+  });
+
+  // Default: show 总纲 on load
+  if (!window.location.hash) {
+    showPanel('panel-zonggang');
+    const defaultBtn = document.querySelector('#topnav .nav-btn[data-panel="panel-zonggang"]');
+    if (defaultBtn) defaultBtn.classList.add('active');
+  }
+
+  // URL hash support on load
+  if (window.location.hash) {
+    const hash = window.location.hash.substring(1);
+    // Check if it's a story
+    if (hash.startsWith('story-')) {
+      showPanel('panel-gushi');
+      const sb = document.querySelector('#topnav .nav-btn[data-panel="panel-gushi"]');
+      if (sb) sb.classList.add('active');
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 200);
+    } else {
+      // Check if it's an anchor in a known section
+      const el = document.getElementById(hash);
+      if (el) {
+        const panel = el.closest('.panel');
+        if (panel) {
+          showPanel(panel.id);
+          const pid = panel.id;
+          const btn = document.querySelector('#topnav .nav-btn[data-panel="' + pid + '"]');
+          if (btn) btn.classList.add('active');
+          setTimeout(() => { el.scrollIntoView({ behavior: 'smooth' }); }, 200);
+        }
+      }
+    }
+  }
+})();
+</script>
+</body>
+</html>
